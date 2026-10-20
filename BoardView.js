@@ -23,13 +23,7 @@ export class BoardView
                 const square = document.querySelector(`#${this.GetIdString(row, column)}`);
 
                 const pieceText = modelBoard[row][column];
-
-                square.removeEventListener("click", square.myClickingReference)
-
-                square.myClickingReference = () => { this.controller.HandleClicking(row, column) }
                 
-                if (pieceText !== "")
-                    square.addEventListener("click", square.myClickingReference);            
                 square.childNodes[1].innerText = pieceText;
             }
         }

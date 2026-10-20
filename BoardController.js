@@ -9,13 +9,14 @@ export class BoardController
         this.view = new BoardView(this);
     }
 
-    HandleClicking(row, column) {
+    HandleClicking(row, column, square)
+    {
         console.log("Clicked on " + this.view.GetIdString(row, column))
     }
 
     StartGame()
     {
-        MakingBoard();
+        MakingBoard(this);
         
         const boardModel = new BoardModel();
 
