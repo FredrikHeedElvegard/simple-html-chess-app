@@ -15,6 +15,25 @@
     font-size: small;
 }
 
+body 
+{
+    background-color: #1e1e1e;
+
+    margin: 0px;
+        /* Wipes out default browser edge spacing */
+    
+        /* CENTERING POWER HOOKS */
+        display: flex;
+        /* Turns the entire screen into a flex container */
+        flex-direction: column;
+        /* Keeps elements stacked vertically if you add a title */
+        justify-content: center;
+        /* Centers the board perfectly from top-to-bottom */
+        align-items: center;
+        /* Centers the board perfectly from left-to-right */
+    
+        min-height: 100vh;
+}
 
 .BlackSquare{
 background-color:chocolate;
