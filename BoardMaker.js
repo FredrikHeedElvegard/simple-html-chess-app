@@ -13,6 +13,12 @@ export const MakingBoard = ()=>
                 const letter = String.fromCharCode(65 +j);
                 square.innerText = `${letter}${i+1}`;
                 square.classList.add("Square");
+
+                if ((i % 2 !== 0 && j % 2 === 0) || (i%2 === 0 && j %2 !==0))
+                    square.classList.add("WhiteSquare");
+                else
+                    square.classList.add("BlackSquare");
+
                 rowDiv.appendChild(square);
             }
 
