@@ -1,23 +1,38 @@
 export class BoardView
-{    
-
-    AddPiece(row, column)
+{  
+    
+    constructor(BoardController)
     {
-        const letter = String.fromCharCode(65 + column);
-        const idString = `${letter}${row + 1}`;
-        const square = document.querySelector(`#${idString}`);
-        
-        square.childNodes[1].innerText = `Testing ${idString}`;
-
+        this.controller = BoardController;
     }
 
-    RemovePiece(row, column)
+
+
+    GetIdString(row, column)
     {
         const letter = String.fromCharCode(65 + column);
-        const idString = `${letter}${row + 1}`;
-        const square = document.querySelector(`#${idString}`);
+        return `${letter}${row + 1}`;
+    }
 
-        square.childNodes[1].innerText = "";
+    UpdateBoard(modelBoard)
+    {
+        for (let row = 0; row < 8; row++) {
+
+            for (let column = 0; column < 8; column++) {
+                                               
+                const square = document.querySelector(`#${this.GetIdString(row, column)}`);
+
+                const pieceText = modelBoard[row][column];
+
+                square.removeEventListener("click", square.myClickingReference)
+
+                square.myClickingReference = () => { this.controller.HandleClicking(row, column) }
+                
+                if (pieceText !== "")
+                    square.addEventListener("click", square.myClickingReference);            
+                square.childNodes[1].innerText = pieceText;
+            }
+        }
     }
 
 }

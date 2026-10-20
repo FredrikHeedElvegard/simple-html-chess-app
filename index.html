@@ -11,6 +11,10 @@
 </head>
 <body>    
        
-    <script type="module" src = "BoardController.js"></script>
+    <script type="module">
+        import {BoardController } from "./BoardController.js"
+        const controller = new BoardController();
+        controller.StartGame();
+    </script>
 </body>
 </html>
