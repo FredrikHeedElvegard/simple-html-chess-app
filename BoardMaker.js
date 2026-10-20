@@ -18,7 +18,7 @@ export const MakingBoard = ()=>
                 const idString = `${letter}${i + 1}`;
                 square.id = idString;
                 idLabel.innerText = idString;
-                pieceLabel.innerText = "Testing";
+                // pieceLabel.innerText = "Testing";
                 
                 square.classList.add("Square");
                 
