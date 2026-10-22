@@ -29,4 +29,17 @@ export class BoardView
         }
     }
 
+    GetCoordinates(square)
+    {
+        const id= square.id;
+
+        const row = +id[1] -1;        
+
+        const charCode = id[0].charCodeAt(0);
+        
+        const column = charCode -64 -1;
+
+        return {row, column}
+    }
+
 }

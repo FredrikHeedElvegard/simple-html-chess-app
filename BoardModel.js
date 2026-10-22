@@ -16,6 +16,13 @@ export class BoardModel
 
     selectedSquare = null;
 
+    MoveSquare(fromCoordinates, toCoordinates)
+    {
+        const pieceToMove = this.board[fromCoordinates.row][fromCoordinates.column];
+        this.board[fromCoordinates.row][fromCoordinates.column]= "";
+        this.board[toCoordinates.row][toCoordinates.column] =pieceToMove;
+    }
+
     board =
         [
             [white+rook, white+knight, white+bishop, white+queen, white+king, white+bishop, white+knight, white+rook],
