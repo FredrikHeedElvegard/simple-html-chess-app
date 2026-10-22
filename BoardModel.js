@@ -21,6 +21,7 @@ export class BoardModel
         const pieceToMove = this.board[fromCoordinates.row][fromCoordinates.column];
         this.board[fromCoordinates.row][fromCoordinates.column]= "";
         this.board[toCoordinates.row][toCoordinates.column] =pieceToMove;
+        this.#currentTurn= (this.#currentTurn == "white")? "black": "white";
     }
 
     board =

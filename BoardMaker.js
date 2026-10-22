@@ -22,7 +22,7 @@ export const MakingBoard = (controller)=>
                 
                 square.classList.add("Square");
 
-                square.addEventListener("click", ()=>controller.HandleClicking(row, column, square));
+                square.addEventListener("click", ()=>controller.HandleClicking(square));
                 
                 square.appendChild(idLabel);
                 square.appendChild(pieceLabel);

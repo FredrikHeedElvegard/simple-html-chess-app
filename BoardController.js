@@ -12,7 +12,7 @@ export class BoardController
         this.boardModel = new BoardModel();
     }
 
-    HandleClicking(row, column, square)
+    HandleClicking(square)
     {    
         const piece = square.childNodes[1].innerText;  
         if(this.#selectedSquare !== null)
