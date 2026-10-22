@@ -4,6 +4,8 @@ import { BoardModel } from "./BoardModel.js";
 
 export class BoardController
 {
+    #selectedSquare = null;
+
     constructor()
     {
         this.view = new BoardView(this);
@@ -11,10 +13,19 @@ export class BoardController
     }
 
     HandleClicking(row, column, square)
-    {        
-        if (square.childNodes[1].innerText[0] === "w")
-            console.log("WHITE");
-        console.log("We are clicking " + this.view.GetIdString(row, column));
+    {    
+        const piece = square.childNodes[1].innerText;  
+        if(this.#selectedSquare !== null)
+        {
+            this.#selectedSquare.classList.remove("Selected");
+            this.#selectedSquare = null; 
+        } 
+        if(piece === "" || piece[0] !== this.boardModel.currentTurn[0])
+            return;           
+        
+        console.log("Selected " + piece)
+        this.#selectedSquare = square;
+        square.classList.add("Selected")
     }
 
     StartGame()

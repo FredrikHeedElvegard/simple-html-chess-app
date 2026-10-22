@@ -10,7 +10,11 @@ const white = "white "
 export class BoardModel
 {    
 
-    currentTurn = "white";
+    #currentTurn = "white";
+
+    get currentTurn(){ return this.#currentTurn; } 
+
+    selectedSquare = null;
 
     board =
         [
