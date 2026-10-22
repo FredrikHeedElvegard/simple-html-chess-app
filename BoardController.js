@@ -7,20 +7,21 @@ export class BoardController
     constructor()
     {
         this.view = new BoardView(this);
+        this.boardModel = new BoardModel();
     }
 
     HandleClicking(row, column, square)
-    {
-        console.log("Clicked on " + this.view.GetIdString(row, column))
+    {        
+        if (square.childNodes[1].innerText[0] === "w")
+            console.log("WHITE");
+        console.log("We are clicking " + this.view.GetIdString(row, column));
     }
 
     StartGame()
     {
-        MakingBoard(this);
-        
-        const boardModel = new BoardModel();
+        MakingBoard(this);                
 
-        this.view.UpdateBoard(boardModel.board); 
+        this.view.UpdateBoard(this.boardModel.board); 
     }       
 }
 

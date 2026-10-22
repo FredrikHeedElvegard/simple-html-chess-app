@@ -10,6 +10,8 @@ const white = "white "
 export class BoardModel
 {    
 
+    currentTurn = "white";
+
     board =
         [
             [white+rook, white+knight, white+bishop, white+queen, white+king, white+bishop, white+knight, white+rook],
