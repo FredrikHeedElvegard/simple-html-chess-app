@@ -12,28 +12,30 @@ export class BoardController
         this.boardModel = new BoardModel();
     }
 
-    HandleClicking(square)
+    HandleClicking(clickedSquare)
     {    
-        const piece = square.childNodes[1].innerText;  
+        const clickedSquarePiece = clickedSquare.childNodes[1].innerText;          
+
         if(this.#selectedSquare !== null)
         {
-            if(piece=== "")
-            {
-                const fromCoordinates = this.view.GetCoordinates(this.#selectedSquare);
-                const toCoordinates = this.view.GetCoordinates(square);   
-                this.boardModel.MoveSquare(fromCoordinates, toCoordinates);
-                this.view.UpdateBoard(this.boardModel.board);
-            }
-
+            const fromCoordinates = this.view.GetCoordinates(this.#selectedSquare);
+            const toCoordinates = this.view.GetCoordinates(clickedSquare); 
             this.#selectedSquare.classList.remove("Selected");
-            this.#selectedSquare = null;           
+            this.#selectedSquare = null; 
+  
+                if(this.boardModel.CanMove(fromCoordinates, toCoordinates))
+                {
+                    this.boardModel.MoveSquare(fromCoordinates, toCoordinates);
+                    this.view.UpdateBoard(this.boardModel.board);
+                    return;
+                }                  
+                   
         } 
-        if(piece === "" || piece[0] !== this.boardModel.currentTurn[0])
+        if(clickedSquarePiece[0] !== this.boardModel.currentTurn[0])
             return;           
         
-        console.log("Selected " + piece)
-        this.#selectedSquare = square;
-        square.classList.add("Selected")
+        this.#selectedSquare = clickedSquare;
+        clickedSquare.classList.add("Selected")
     }
 
     StartGame()
