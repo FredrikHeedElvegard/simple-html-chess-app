@@ -30,12 +30,15 @@ export class Pawn{
                 return true;
 
             const pieceInFront = this.GetBoardPiece(board, fromCoordinates.row+sign, fromCoordinates.column);
-            
+
             if(fromCoordinates.row === startRow && 
                 toCoordinates.row === fromCoordinates.row + 2*sign &&
             pieceInFront === null)
                 return true
         }
+
+        
+
         return false;
     }
     
