@@ -1,11 +1,11 @@
-const knight = "knight";
-const bishop = "bishop";
-const queen = "queen";
-const king = "king";
-const rook = "rook";
-const pawn = "pawn";  
 const black = "black "
 const white = "white "
+import {Bishop } from "./ModelPieces/Bishop.js"
+import {Pawn} from "./ModelPieces/Pawn.js"
+import {King } from "./ModelPieces/King.js"
+import {Queen } from "./ModelPieces/Queen.js"
+import {Knight } from "./ModelPieces/Knight.js"
+import {Rook} from "./ModelPieces/Rook.js"
 
 export class BoardModel
 {    
@@ -19,7 +19,7 @@ export class BoardModel
     MoveSquare(fromCoordinates, toCoordinates)
     {
         const pieceToMove = this.board[fromCoordinates.row][fromCoordinates.column];
-        this.board[fromCoordinates.row][fromCoordinates.column]= "";
+        this.board[fromCoordinates.row][fromCoordinates.column]= null;
         this.board[toCoordinates.row][toCoordinates.column] =pieceToMove;
         this.#currentTurn= (this.#currentTurn == "white")? "black": "white";
     }
@@ -27,66 +27,39 @@ export class BoardModel
     CanMove(fromCoordinates, toCoordinates)
     {
         const pieceToMove = this.GetBoardPiece(fromCoordinates);
-        const splitWord = this.GetWordSplit(pieceToMove);
-        const pieveToMoveColorLess = splitWord[1];
-        const color = splitWord[0];
 
-        switch (pieveToMoveColorLess) {
-            case "pawn":
-               return this.CanPawnMove(color, fromCoordinates, toCoordinates);        
-            default:
-                return false;
-        }
+       return pieceToMove.CanMove(fromCoordinates, toCoordinates, this.board);
     }
 
-    GetBoardPiece = (coordinates) => this.board[coordinates.row][coordinates.column];
-
-    GetWordSplit = (piece) => piece.trim().split(/\s+/);ç
  
+    GetBoardPiece = (coordinates) => this.board[coordinates.row][coordinates.column];
+   
 
-    CanPawnMove(color, fromCoordinates, toCoordinates)
-    {
-        const pieceAtTarget = this.GetBoardPiece(toCoordinates);
-        const sign = (color === "white")? 1: -1;
-        const startRow = (color === "white")? 1:6;
-
-        if(pieceAtTarget !== "")
-        {
-            const splitTargetPiece = this.GetWordSplit(pieceAtTarget);
-                
-            if(splitTargetPiece[0] != color && 
-                Math.abs(fromCoordinates.column - toCoordinates.column) === 1 &&
-                toCoordinates.row === fromCoordinates.row +sign
-                )                
-                return true;
-
-                return false;
-        }                        
-    
-        if(fromCoordinates.column === toCoordinates.column)
-        {
-            if(toCoordinates.row === fromCoordinates.row + sign)
-                return true;
-
-            const pieceInFront = this.GetBoardPiece({row: fromCoordinates.row+sign, column: fromCoordinates.column});
-            console.log("In front: " + pieceInFront);
-            if(fromCoordinates.row === startRow && 
-                toCoordinates.row === fromCoordinates.row + 2*sign &&
-            pieceInFront === "")
-                return true
-        }
-        return false;
-    }
-
-    board =
-        [
-            [white+rook, white+knight, white+bishop, white+queen, white+king, white+bishop, white+knight, white+rook],
-            [white + pawn, white + pawn, white + pawn, white + pawn, white + pawn, white + pawn, white + pawn, white + pawn],
-            ["", "", "", "", "", "", "", ""],
-            ["", "", "", "", "", "", "", ""],
-            ["", "", "", "", "", "", "", ""],
-            ["", "", "", "", "", "", "", ""],
-            [black + pawn, black + pawn, black + pawn, black + pawn, black + pawn, black + pawn, black + pawn, black + pawn],
-            [black+rook, black+knight, black+bishop, black+queen, black+king, black+bishop, black+knight, black+rook]
-        ];
+board = [
+    // White Pieces (Row 0)
+    [
+        new Rook("white",), new Knight("white"), new Bishop("white"), new Queen("white"), 
+        new King("white"), new Bishop("white"), new Knight("white"), new Rook("white")
+    ],
+    // White Pawns (Row 1)
+    [
+        new Pawn("white"), new Pawn("white"), new Pawn("white"), new Pawn("white"), 
+        new Pawn("white"), new Pawn("white"), new Pawn("white"), new Pawn("white")
+    ],
+    // Empty Squares (Rows 2 to 5 using null)
+    [null, null, null, null, null, null, null, null],
+    [null, null, null, null, null, null, null, null],
+    [null, null, null, null, null, null, null, null],
+    [null, null, null, null, null, null, null, null],
+    // Black Pawns (Row 6)
+    [
+        new Pawn("black"), new Pawn("black"), new Pawn("black"), new Pawn("black"), 
+        new Pawn("black"), new Pawn("black"), new Pawn("black"), new Pawn("black")
+    ],
+    // Black Pieces (Row 7)
+    [
+        new Rook("black"), new Knight("black"), new Bishop("black"), new Queen("black"), 
+        new King("black"), new Bishop("black"), new Knight("black"), new Rook("black")
+    ]
+];
 }

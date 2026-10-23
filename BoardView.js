@@ -22,9 +22,12 @@ export class BoardView
                                                
                 const square = document.querySelector(`#${this.GetIdString(row, column)}`);
 
-                const pieceText = modelBoard[row][column];
+                const piece = modelBoard[row][column];
                 
-                square.childNodes[1].innerText = pieceText;
+                if(piece !== null)
+                square.childNodes[1].innerText = piece.color + " " + piece.constructor.name;
+                else
+                   square.childNodes[1].innerText = ""; 
             }
         }
     }

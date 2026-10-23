@@ -14,28 +14,32 @@ export class BoardController
 
     HandleClicking(clickedSquare)
     {    
-        const clickedSquarePiece = clickedSquare.childNodes[1].innerText;          
+        const coordinatesClicked = this.view.GetCoordinates(clickedSquare);
+        const clickedPiece = this.boardModel.board[coordinatesClicked.row][coordinatesClicked.column];      
 
         if(this.#selectedSquare !== null)
         {
             const fromCoordinates = this.view.GetCoordinates(this.#selectedSquare);
-            const toCoordinates = this.view.GetCoordinates(clickedSquare); 
             this.#selectedSquare.classList.remove("Selected");
             this.#selectedSquare = null; 
   
-                if(this.boardModel.CanMove(fromCoordinates, toCoordinates))
+                if(this.boardModel.CanMove(fromCoordinates, coordinatesClicked))
                 {
-                    this.boardModel.MoveSquare(fromCoordinates, toCoordinates);
+                    this.boardModel.MoveSquare(fromCoordinates, coordinatesClicked);
                     this.view.UpdateBoard(this.boardModel.board);
                     return;
                 }                  
                    
         } 
-        if(clickedSquarePiece[0] !== this.boardModel.currentTurn[0])
-            return;           
-        
-        this.#selectedSquare = clickedSquare;
-        clickedSquare.classList.add("Selected")
+      
+        if(clickedPiece !== null)
+        {
+            if(clickedPiece.color === this.boardModel.currentTurn)
+            {
+                 this.#selectedSquare = clickedSquare;
+                clickedSquare.classList.add("Selected");
+            }
+        }
     }
 
     StartGame()
