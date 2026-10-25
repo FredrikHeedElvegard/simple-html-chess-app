@@ -28,6 +28,11 @@ export class BoardModel
     {
         const pieceToMove = this.GetBoardPiece(fromCoordinates);
 
+          const pieceAtTarget = this.GetBoardPiece(toCoordinates);
+        if(pieceAtTarget!= null)
+            if(pieceAtTarget.color == pieceToMove.color)
+                return false;
+
        return pieceToMove.CanMove(fromCoordinates, toCoordinates, this.board);
     }
 

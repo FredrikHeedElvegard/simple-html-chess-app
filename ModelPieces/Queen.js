@@ -13,4 +13,7 @@ export class Queen{
 
        return pieceToMove.CanMove(fromCoordinates, toCoordinates);
     }
+
+    GetBoardPiece2 = (board, coordinates) => board[coordinates.row][coordinates.column];
+    GetBoardPiece = (board, row, column) => board[row][column];
 }
